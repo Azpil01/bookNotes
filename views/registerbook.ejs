@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
+    <title>Nuevo libro</title>
+    <link rel="stylesheet" href="/registerbook.css">
+
+</head>
+
+
+<body>
+    <section class="leftPanel">
+        <article>
+            <h2>Notas Bibliográficas</h2>
+        </article>
+    </section>
+
+    <section class="theForm">
+        <h2>Agregar libro</h2>
+        <form action="/addbook" method="post">
+            <p>Nombre del libro</p>
+            <input type="text" name="title" placeholder="Ej. Orgullo y Prejuicio" required>
+            <p>Autor</p>
+            <input type="text" name="author" placeholder="Ej. Jane Austen" required>
+            <div class="interForm">
+                <div class="rowForm">
+                    <p>Año de lectura</p>
+                    <input class="shortInput" type="text" name="year" placeholder="2023">
+                </div>
+                <div class="rowForm">
+                    <p>Rating</p>
+                    <input class="shortInput" type="number" name="rating" min="1" max="5" step="1" placeholder="1-5" required>
+                </div>
+            </div>
+            <p>ISBN</p>
+            <input type="text" name="isbn" placeholder="Ej. 0143036238">
+
+            <p>Resumen</p>
+            <textarea class="textarea" name="resume" id=""></textarea>
+            <p>Notas personales</p>
+            <textarea class="textarea" name="notes"></textarea>
+            <button type="submit">Guardar Libro</button>
+        </form>
+    </section>
+
+
+    <section class="background">
+
+    </section>
+
+</body>
+
+</html>

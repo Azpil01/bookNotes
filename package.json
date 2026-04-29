@@ -1,0 +1,19 @@
+{
+  "name": "booknotesweb",
+  "version": "1.0.0",
+  "description": "App to add comments to the books you read",
+  "license": "ISC",
+  "author": "Azpil",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.3"
+  }
+}

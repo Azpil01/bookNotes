@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Includes padding and border in the element's width/height */
+}
+
+body {
+  line-height: 1.6;
+  color: #000000;
+  background-color: antiquewhite;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.left-panel {
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  flex-direction: column;
+}
+
+
+.portada,
+.info-basica {
+  margin-top: 10%;
+}
+
+.rating {
+  margin-top: 3%;
+}
+
+.rating p {
+  font-size: 2rem;
+  font-family: "Noto Sans Display", sans-serif;
+  font-weight: bold;
+}
+
+.info-basica {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-basica p {
+  font-size: 1rem;
+  font-family: "Noto Sans Display", sans-serif;
+  margin-top: 5%;
+}
+
+.portada img {
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.main-panel {
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: rgb(245, 240, 234);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  z-index: 10;
+  padding: 5rem 2rem;
+}
+
+.header {
+  margin-bottom: 5%;
+}
+
+.header h2 {
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 2.5rem;
+  color: #121b46;
+}
+
+
+.header h4 {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.2rem;
+  color: #121b46;
+}
+
+.resumen h4, .notas h4 {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  color: #121b46;
+  margin-bottom: 10px;
+}
+
+.resumen p, .notas p {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  color: #000000;
+  text-align: justify;
+  line-height: 1.8; 
+}
+
+.notas {
+  margin-top: 5%;
+}
+
+.right-panel {
+  width: 30%;
+  height: 100vh;
+  background-image: url("images/bookshelf-books-education-knowledge-study.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+
+
+
+/* --- RESPONSIVIDAD PARA LA VISTA DE DETALLE --- */
+
+@media (max-width: 900px) {
+  body {
+    flex-direction: column; /* Apilamos los paneles verticalmente */
+    height: auto;           /* Permitimos que el contenido defina el largo */
+    overflow-y: auto;       /* Habilitamos el scroll global */
+  }
+
+  /* 1. Panel de Ficha Técnica (Izquierdo) */
+  .left-panel {
+    width: 100%;            /* Ocupa todo el ancho */
+    height: auto;
+    padding: 40px 20px;
+    background-color: antiquewhite;
+  }
+
+  .portada img {
+    max-width: 200px;       /* Evitamos que la imagen sea gigante en móvil */
+    height: auto;
+  }
+
+  /* 2. Panel de Contenido Principal (Centro) */
+  .main-panel {
+    width: 100%;            /* Ocupa todo el ancho */
+    height: auto;
+    padding: 2rem 1.5rem;   /* Reducimos el padding de 5rem a algo más móvil */
+    box-shadow: none;       /* Quitamos la sombra lateral para que no se vea cortada */
+  }
+
+  .header h2 {
+    font-size: 2rem;        /* Título un poco más pequeño */
+  }
+
+  /* 3. Panel de Imagen (Derecho) */
+  .right-panel {
+    display: none;          /* Ocultamos la imagen decorativa en móvil para ahorrar espacio */
+  }
+}
+
+/* Ajustes para celulares muy pequeños */
+@media (max-width: 480px) {
+  .header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .resumen p, .notas p {
+    font-size: 0.95rem;     /* Ajuste sutil de lectura */
+  }
+}

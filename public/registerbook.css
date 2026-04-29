@@ -1,0 +1,233 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Includes padding and border in the element's width/height */
+}
+
+body {
+  line-height: 1.6;
+  color: #000000;
+  background-color: antiquewhite;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.leftPanel {
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.leftPanel h2 {
+  font-size: 2.5rem;
+  font-family: "Noto Sans Display", sans-serif;
+  color: #121b46;
+  text-align: center;
+}
+
+.theForm {
+  width: 40%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(245, 240, 234);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  z-index: 10;
+  padding-bottom: 2rem;
+}
+
+.theForm h2 {
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 2.5rem;
+  color: #121b46;
+  margin-top: 10%;
+}
+
+form {
+  width: 100%;
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 2% 10%;
+}
+
+form p {
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 1rem;
+  margin-top: 3%;
+}
+
+input {
+  width: 100%;
+  font-size: 0.8rem;
+  font-family:
+    "Quicksand", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+  font-weight: 700;
+  height: 2rem;
+  border-radius: 5px;
+  border: none;
+  padding: 0 15px;
+}
+
+.interForm {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3%;
+}
+
+.rowForm {
+  display: flex;
+  flex-direction: column;
+  flex: 0.5;
+}
+
+.shortInput {
+  width: 100%;
+}
+
+.textarea {
+  background-color: #ffffff;
+  color: #666;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  outline: none;
+  font-size: 1rem;
+  font-family: "Quicksand";
+  font-weight: 500;
+  line-height: 1.4;
+  width: 100%;
+  height: 10rem;
+  transition: all 0.2s;
+}
+
+.textarea:hover {
+  cursor: pointer;
+  background-color: rgb(209, 209, 209);
+}
+
+.textarea:focus {
+  cursor: text;
+  color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  border-color: rgb(39, 39, 39);
+}
+
+button {
+  margin-top: 10px;
+  width: 100%;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: antiquewhite;
+  font-family: "Noto Sans Display", sans-serif;
+  background-color: #1d2b6d;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all   0.2s ease;
+}
+
+button:hover {
+  background-color: #1430c0; /* Un azul más oscuro */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: scale(0.98); /* Se encoge un 2% (efecto de presionado) */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.background {
+  width: 30%;
+  height: 100vh;
+  background-image: url("images/cozy-library-interior-with-bookshelves-window-natural-light.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.btn-cancel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3rem;
+  text-decoration: none; /* Quita el subrayado del link */
+  border: 2px solid #1d2b6d; /* El mismo azul de tus botones */
+  color: #ffffff;
+  font-family: "Noto Sans Display", sans-serif;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #f0f0f0;
+  color: #121b46;
+}
+
+
+/* --- ESTILOS PARA CELULARES Y TABLETS (Menos de 900px) --- */
+@media (max-width: 900px) {
+  body {
+    flex-direction: column; /* Apilamos los elementos verticalmente */
+    height: auto;           /* Permitimos que la página crezca hacia abajo */
+    overflow-y: auto;       /* Habilitamos el scroll */
+    background-color: rgb(245, 240, 234); /* Color de fondo uniforme */
+  }
+
+  /* 1. Ocultamos la imagen de fondo por completo */
+  .background {
+    display: none; 
+  }
+
+  /* 2. El panel del título ocupa todo el ancho y se ajusta arriba */
+  .leftPanel {
+    width: 100%;
+    height: auto;
+    padding: 30px 10px;
+    background-color: antiquewhite; /* Mantenemos tu color de marca arriba */
+  }
+
+  .leftPanel h2 {
+    font-size: 1.8rem; /* Un poco más pequeño para móviles */
+  }
+
+  /* 3. El formulario toma todo el espacio y eliminamos sombras laterales */
+  .theForm {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    box-shadow: none; /* En móvil las sombras laterales pueden verse raras */
+  }
+
+  form {
+    max-width: 100%; /* El formulario aprovecha todo el ancho del celular */
+    padding: 0;
+  }
+
+  /* 4. Ajuste para que Año y Rating no se vean apretados */
+  .interForm {
+    flex-direction: row; /* Mantenerlos juntos si hay espacio */
+    gap: 15px;
+  }
+}
+
+/* Ajuste extra para celulares muy pequeños (Vertical) */
+@media (max-width: 480px) {
+  .interForm {
+    flex-direction: column; /* Los ponemos uno sobre otro en pantallas mini */
+  }
+}

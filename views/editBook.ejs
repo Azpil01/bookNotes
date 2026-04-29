@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap"
+        rel="stylesheet">
+    <title>Editar libro</title>
+    <link rel="stylesheet" href="/registerbook.css">
+
+</head>
+
+
+<body>
+    <section class="leftPanel">
+        <article>
+            <h2>Notas Bibliográficas</h2>
+        </article>
+    </section>
+
+    <section class="theForm">
+        <h2>Editar libro</h2>
+        <form action="/edit/<%= libro.id %>" method="post">
+            <p>Nombre del libro</p>
+            <input type="text" name="title" value="<%= libro.titulo %>">
+            <p>Autor</p>
+            <input type="text" name="author" value="<%= libro.autor %>">
+            <div class="interForm">
+                <div class="rowForm">
+                    <p>Año de lectura</p>
+                    <input class="shortInput" type="text" name="year" value="<%= libro.anio_lectura %>">
+                </div>
+                <div class="rowForm">
+                    <p>Rating</p>
+                    <input class="shortInput" type="number" name="rating" min="1" max="5" step="1" value="<%= libro.puntuacion %>">
+                </div>
+            </div>
+            <p>ISBN</p>
+            <input type="text" name="isbn" value="<%= libro.isbn %>">
+
+            <p>Resumen</p>
+            <textarea class="textarea" name="resume" id=""><%= libro.resumen %></textarea>
+            <p>Notas personales</p>
+            <textarea class="textarea" name="notes"><%= libro.notas_personales %></textarea>
+            <button type="submit">Guardar Libro</button>
+            <button><a href="/" class="btn-cancel">Cancelar</a></button>
+        </form>
+        
+    </section>
+
+
+    <section class="background">
+
+    </section>
+
+</body>
+
+</html>

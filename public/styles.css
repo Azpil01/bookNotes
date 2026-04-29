@@ -1,0 +1,197 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Includes padding and border in the element's width/height */
+}
+
+body {
+  line-height: 1.6;
+  color: #000000;
+  background-color: antiquewhite;
+  max-width: 100%;
+  margin: 0 auto; /* Centers the content */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.title-header {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  background-image: url(images/peter-bryan-p-diyGc2ldk-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 10%;
+}
+
+.titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo h2 {
+  color: rgb(255, 255, 255);
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 5rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.titulo a {
+  margin-top: auto;
+  width: auto;
+  text-align: center;
+  background-color: #1d2b6d;
+  color: rgb(255, 255, 255);
+  padding: 0.8rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+}
+
+main.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+
+  /* AGREGAR ESTO: */
+  width: 90%; /* Que ocupe el 90% del ancho de la pantalla */
+  max-width: 1200px; /* Para que en monitores muy grandes no se desparrame */
+  margin: 0 auto; /* Centra el grid horizontalmente */
+
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+.libro-card {
+  background: #ffffff;
+  height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  transition: transform 0.3s ease;
+}
+
+.libro-card:hover {
+  transform: translateY(-10px); /* Efecto de levitación */
+}
+
+.portada-wrapper {
+  width: 40%;
+  height: 350px;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  flex-shrink: 0;
+}
+
+.portada-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Mantiene la proporción de la imagen */
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.libro-card:hover .portada-wrapper img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+}
+
+.card-content h2 {
+  font-size: 1.4rem;
+  color: #121b46;
+  margin-bottom: 0.2rem;
+}
+
+.puntuacion-stars {
+  color: #f1c40f;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.btn-leer-mas {
+  margin-top: auto;
+  text-align: center;
+  background-color: #1d2b6d;
+  color: rgb(255, 255, 255);
+  padding: 0.8rem;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+}
+
+/* --- RESPONSIVIDAD PARA EL LANDING (index.ejs) --- */
+
+@media (max-width: 1024px) {
+  main.grid-container {
+    grid-template-columns: repeat(2, 1fr); /* Mantenemos 2 pero reducimos gap */
+    gap: 1.5rem;
+    width: 95%;
+  }
+}
+
+/* Celulares grandes y Tablets pequeñas */
+@media (max-width: 900px) {
+  .titulo h2 {
+    font-size: 3rem; /* Reducimos el Hero para que no ocupe toda la pantalla */
+  }
+
+  main.grid-container {
+    grid-template-columns: 1fr; /* Una sola columna de libros */
+    gap: 2rem;
+  }
+
+  .libro-card {
+    flex-direction: column; /* IMAGEN ARRIBA, TEXTO ABAJO */
+    height: auto;
+  }
+
+  .portada-wrapper {
+    width: 100%; /* La imagen toma todo el ancho de la tarjeta */
+    height: 300px; /* Reducimos un poco la altura para que no sea infinita */
+  }
+
+  .card-content {
+    width: 100%; /* El texto toma todo el ancho */
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  /* Centramos el botón en móvil para mejor UX */
+  .btn-leer-mas {
+    width: 80%;
+    margin: 1.5rem auto 0 auto;
+  }
+}
+
+/* Celulares pequeños */
+@media (max-width: 480px) {
+  .titulo h2 {
+    font-size: 2.2rem;
+  }
+  
+  .title-header {
+    height: 40vh; /* Hero más pequeño en móviles */
+  }
+
+  .card-content h2 {
+    font-size: 1.2rem;
+  }
+}
