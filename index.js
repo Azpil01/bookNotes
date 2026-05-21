@@ -12,14 +12,19 @@ if (!theUser || !thePass) {
   console.error("ERROR: Missing env vars.");
 }
 
-let connection;
+let pool;
 
-async function initializeDB() {
-  connection = await mysql.createConnection({
+function initializeDB() {
+    pool = mysql.createPool({
     host: "srv1293.hstgr.io",
     user: theUser,
     password: thePass,
     database: "u354636099_test1",
+    waitForConnections: true,
+    connectionLimit: 5,
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 10000
   });
   console.log("Successfully connected to Hostingers DB");
 }
@@ -27,7 +32,7 @@ async function initializeDB() {
 (async () => {
   //Esta es una función autoejecutable  o IIFE: Inmediatly Invoked Function Expression
   try {
-    await initializeDB(); // <- clave --Espera a inicializar la base de datos
+    initializeDB(); // <- clave --Espera a inicializar la base de datos
     app.listen(3000, () => console.log("All ok from port 3000")); //Inicializa la aplicación
   } catch (err) {
     //En caso de error
@@ -37,7 +42,7 @@ async function initializeDB() {
 })();
 
 async function getBooks() {
-  const result = await connection.query("SELECT * FROM books");
+  const result = await pool.query("SELECT * FROM books");
   const books = result[0];
   console.log(books);
   return books;
@@ -61,7 +66,7 @@ async function postBook(newBook) {
   ];
   console.log(queryValues)
   try {
-    await connection.query(queryText, queryValues);
+    await pool.query(queryText, queryValues);
     console.log("Success!");
   } catch (err) {
     console.log("Error trying to insert data in the DB", err);
@@ -73,8 +78,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", async (req, res) => {
-  const dbBooks = await getBooks();
-  res.render("index.ejs", { books: dbBooks });
+  try {
+    const dbBooks = await getBooks();
+    res.render("index.ejs", { books: dbBooks });
+  } catch (err) {
+    console.error("Error al cargar los libros en la página principal:", err);
+    res.status(500).send("Hubo un problema al cargar tu colección de libros.");
+  }
 });
 
 
@@ -85,7 +95,7 @@ app.get("/addbook", (req, res) => {
 app.get("/book/:id", async (req, res) => {
   const bookID = req.params.id;
   try {
-    const result = await connection.query("SELECT * FROM books WHERE id = ?", [bookID])
+    const result = await pool.query("SELECT * FROM books WHERE id = ?", [bookID])
     const theBook = result[0][0];
     res.render("editBook.ejs", {book: theBook})
   } catch (err) {
@@ -113,7 +123,7 @@ app.post("/edit/:id", async (req, res) => {
   const cover_url = `https://covers.openlibrary.org/b/isbn/${isbn.trim()}-M.jpg`;
   const queryValues = [title, author, isbn, the_year, scoreInt, user_resume, personal_notes, cover_url, bookID]
   try {
-    await connection.query(
+    await pool.query(
       "UPDATE books SET title = ?, author = ?, isbn = ?, the_year = ?, score = ?, user_resume = ?, personal_notes = ?, cover_url = ? WHERE id = ?", queryValues
     )
     console.log("Sucess Azpil")
@@ -127,7 +137,7 @@ app.post("/edit/:id", async (req, res) => {
 app.delete("/book/:id", async (req, res) => {
   const bookID = req.params.id;
   try {
-    await connection.query("DELETE FROM books WHERE id = ?", bookID);
+    await pool.query("DELETE FROM books WHERE id = ?", [bookID]);
     console.log(`Libro con id: ${bookID} ha sido eliminado`);
     res.sendStatus(200);
   } catch (error) {
