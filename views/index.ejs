@@ -50,7 +50,7 @@
 
                     <section class="resument-corto">
                         <p>
-                            <%= book.user_resume.substring(0, 150) %> ...
+                            <%= book.user_resume ? book.user_resume.substring(0, 150) + "...": "Sin resumen disponible." %> 
                         </p>
                     </section>
                     <a href="/book/<%= book.id %>" class="btn-leer-mas">Leer notas completas</a>

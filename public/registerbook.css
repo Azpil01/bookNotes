@@ -179,6 +179,29 @@ button:active {
 }
 
 
+.btn-delete {
+    background-color: #c0392b; /* Un rojo elegante que contrasta con el beige */
+    width: 50%;
+    color: antiquewhite;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-delete:hover {
+    background-color: #962d22; /* Rojo más oscuro al pasar el cursor */
+    transform: scale(1.02);
+}
+
+.btn-delete:active {
+    transform: scale(0.98);
+}
+
+
 /* --- ESTILOS PARA CELULARES Y TABLETS (Menos de 900px) --- */
 @media (max-width: 900px) {
   body {

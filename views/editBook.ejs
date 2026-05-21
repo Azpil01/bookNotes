@@ -24,30 +24,31 @@
 
     <section class="theForm">
         <h2>Editar libro</h2>
-        <form action="/edit/<%= libro.id %>" method="post">
+        <form action="/edit/<%= book.id %>" method="post">
             <p>Nombre del libro</p>
-            <input type="text" name="title" value="<%= libro.titulo %>">
+            <input type="text" name="title" value="<%= book.title %>">
             <p>Autor</p>
-            <input type="text" name="author" value="<%= libro.autor %>">
+            <input type="text" name="author" value="<%= book.author %>">
             <div class="interForm">
                 <div class="rowForm">
                     <p>Año de lectura</p>
-                    <input class="shortInput" type="text" name="year" value="<%= libro.anio_lectura %>">
+                    <input class="shortInput" type="text" name="the_year" value="<%= book.the_year %>">
                 </div>
                 <div class="rowForm">
                     <p>Rating</p>
-                    <input class="shortInput" type="number" name="rating" min="1" max="5" step="1" value="<%= libro.puntuacion %>">
+                    <input class="shortInput" type="number" name="score" min="1" max="5" step="1" value="<%= book.score %>">
                 </div>
             </div>
             <p>ISBN</p>
-            <input type="text" name="isbn" value="<%= libro.isbn %>">
+            <input type="text" name="isbn" value="<%= book.isbn %>">
 
             <p>Resumen</p>
-            <textarea class="textarea" name="resume" id=""><%= libro.resumen %></textarea>
+            <textarea class="textarea" name="user_resume" id=""><%= book.user_resume %></textarea>
             <p>Notas personales</p>
-            <textarea class="textarea" name="notes"><%= libro.notas_personales %></textarea>
+            <textarea class="textarea" name="personal_notes"><%= book.personal_notes %></textarea>
             <button type="submit">Guardar Libro</button>
             <button><a href="/" class="btn-cancel">Cancelar</a></button>
+            <button type="button" class="btn-delete" data-id="<%= book.id %>" id="btnDelete">Eliminar libro</button>
         </form>
         
     </section>
@@ -56,7 +57,27 @@
     <section class="background">
 
     </section>
+    <script>
+        document.getElementById('btnDelete').addEventListener('click', async(e) => {
+            const bookId = e.target.getAttribute('data-id')
 
+            if (confirm("Estas seguro de eliminar este libro y todas las notas")){
+                try {
+                    const response = await fetch(`/book/${bookId}`, {
+                        method:"DELETE"
+                    });
+                    if (response.ok) {
+                        window.location.href = "/";
+                    } else {
+                        alert("Hubo un error en el servidor al tratar de eliminar el libro")
+                    }
+                } catch (error) {
+                    console.error("Error en la petición Fetch: ", error);
+                    alert('No se pudo conectar con el servidor');
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
