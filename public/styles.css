@@ -81,6 +81,8 @@ main.grid-container {
   transition: transform 0.3s ease;
 }
 
+
+
 .libro-card:hover {
   transform: translateY(-10px); /* Efecto de levitación */
 }
@@ -117,6 +119,18 @@ main.grid-container {
   font-size: 1.4rem;
   color: #121b46;
   margin-bottom: 0.2rem;
+}
+
+.info h2, h3 {
+  font-family:"Noto Sans Display", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
+}
+
+.resumen-corto {
+  margin-top: 10px;
+}
+
+.resumen-corto p {
+  font-family:"Quicksand", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS";
 }
 
 .puntuacion-stars {

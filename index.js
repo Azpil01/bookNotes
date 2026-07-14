@@ -95,6 +95,18 @@ app.get("/addbook", (req, res) => {
 app.get("/book/:id", async (req, res) => {
   const bookID = req.params.id;
   try {
+    console.log(bookID)
+    res.render("libro.ejs", {})
+  } catch (error) {
+    console.error("Error al obtener el libro: ", error);
+    res.status(500).send("Error del servidor")
+  }
+ 
+})
+
+app.get("/editBook/:id", async (req, res) => {
+  const bookID = req.params.id;
+  try {
     const result = await pool.query("SELECT * FROM books WHERE id = ?", [bookID])
     const theBook = result[0][0];
     res.render("editBook.ejs", {book: theBook})
@@ -126,7 +138,7 @@ app.post("/edit/:id", async (req, res) => {
     await pool.query(
       "UPDATE books SET title = ?, author = ?, isbn = ?, the_year = ?, score = ?, user_resume = ?, personal_notes = ?, cover_url = ? WHERE id = ?", queryValues
     )
-    console.log("Sucess Azpil")
+    console.log("Success Azpil")
     res.redirect("/")
   } catch (err) {
     console.error("Error al actualizar el libro:", err);

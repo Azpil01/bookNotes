@@ -10,7 +10,7 @@
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Quicksand:wght@300..700&display=swap"
         rel="stylesheet">
     <title>
-        <%= libro.titulo %>
+        <%= book.title %>
     </title>
     <link rel="stylesheet" href="/book.css">
 </head>
@@ -18,37 +18,37 @@
 <body>
     <section class="left-panel">
         <div class="portada">
-            <img src="<%= libro.imagen_portada %>" alt="">
+            <img src="<%= book.cover_url %>" alt="">
         </div>
         <div class="rating">
-            <% if (libro.puntuacion === 5) { %>
+            <% if (book.score === 5) { %>
                 <p>⭐⭐⭐⭐⭐</p>
-            <%} else if (libro.puntuacion === 4) { %>
+            <%} else if (book.score === 4) { %>
                 <p>⭐⭐⭐⭐</p>
-            <%} else if (libro.puntuacion === 3) { %>
+            <%} else if (book.score === 3) { %>
                 <p>⭐⭐⭐</p>
             <%}%>
         </div>
         <div class="info-basica">
-            <p>ISBN: <%= libro.isbn %>
+            <p>ISBN: <%= book.isbn %>
             </p>
-            <P>Año de lectura: <%= libro.anio_lectura %>
+            <P>Año de lectura: <%= book.the_year %>
             </P>
         </div>
     </section>
 
     <section class="main-panel">
         <article class="header">
-            <h2><%= libro.titulo %></h2>
-            <h4>por <%= libro.autor %></h4>
+            <h2><%= book.title%></h2>
+            <h4>por <%= book.author %></h4>
         </article>
         <article class="resumen">
             <h4>RESUMEN</h4>
-            <p><%= libro.resumen %></p>
+            <p><%= book.user_resume %></p>
         </article>
         <article class="notas">
             <h4>MIS NOTAS PERSONALES</h4>
-            <p> <%= libro.notas_personales %></p>
+            <p> <%= book.personal_notes %></p>
         </article>
     </section>
 
