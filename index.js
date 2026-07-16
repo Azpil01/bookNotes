@@ -77,15 +77,23 @@ async function postBook(newBook) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-app.get("/", async (req, res) => {
-  try {
-    const dbBooks = await getBooks();
-    res.render("index.ejs", { books: dbBooks });
-  } catch (err) {
-    console.error("Error al cargar los libros en la página principal:", err);
-    res.status(500).send("Hubo un problema al cargar tu colección de libros.");
-  }
-});
+app.get("/", (req, res) => {
+  res.render("login.ejs")
+})
+
+app.get("/register", (req, res) => {
+  res.render("register.ejs")
+})
+
+// app.get("/", async (req, res) => {
+//   try {
+//     const dbBooks = await getBooks();
+//     res.render("index.ejs", { books: dbBooks });
+//   } catch (err) {
+//     console.error("Error al cargar los libros en la página principal:", err);
+//     res.status(500).send("Hubo un problema al cargar tu colección de libros.");
+//   }
+// });
 
 
 app.get("/addbook", (req, res) => {

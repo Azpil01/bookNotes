@@ -151,6 +151,147 @@ main.grid-container {
   font-weight: bold;
 }
 
+.login-body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: antiquewhite; /* Fondo crema característico */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Tarjeta blanca central que flota sobre el fondo crema */
+.login-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* Sombra suave para dar profundidad */
+  box-sizing: border-box;
+}
+
+/* Encabezado del formulario (Títulos y subtítulos) */
+.login-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.login-header h2 {
+  color: #121b46; /* Tu azul marino profundo */
+  font-family: "Noto Sans Display", sans-serif;
+  font-size: 1.8rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: #555555;
+  font-size: 0.95rem;
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+}
+
+/* Estructura del formulario interno */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Bloques individuales para cada Label e Input */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-group label {
+  color: #121b46;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: "Quicksand", sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;  
+}
+
+
+
+
+
+/* Efecto Focus: Resalta visualmente el input que el usuario está editando */
+.form-group input:focus {
+  outline: none;
+  border-color: #1d2b6d;
+  box-shadow: 0 0 5px rgba(29, 43, 109, 0.2);
+}
+
+/* Botón de acción principal en Azul Marino */
+.btn-login {
+  background-color: #1d2b6d;
+  color: white; /* Texto en contraste crema */
+  padding: 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+/* Feedback interactivo para el botón */
+.btn-login:hover {
+  background-color: #121b46;
+  transform: translateY(-1px); /* Ligera elevación profesional */
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+/* Alertas dinámicas para cuando falla la validación en Express */
+.error-message {
+  background-color: #fce4e4;
+  border: 1px solid #fcc2c2;
+  color: #cc0000;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+}
+
+/* Texto inferior para navegar entre Login y Registro */
+.login-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #555555;
+}
+
+.login-footer a {
+  color: #1d2b6d;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+
 /* --- RESPONSIVIDAD PARA EL LANDING (index.ejs) --- */
 
 @media (max-width: 1024px) {
