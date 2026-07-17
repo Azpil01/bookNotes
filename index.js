@@ -118,15 +118,22 @@ app.get("/register", (req, res) => {
 
 app.post("/register", async (req, res) => {
   const userInputData = req.body;
+  console.log(userInputData.email);
 
   try {
-    const checkResult = await pool.query("SELECT * FROM users WHERE email = ?", [userInputData.email])
-    console.log(checkResult)
-    
+    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [userInputData.email]) //+Esta deestructuración funciona porque  "rows"
+    //+toma el valor del primer elemento del arrreglo del resultado de la query. En este caso el primer elemento son los datos de la búsqueda. El nombre de la const puede ser el que quieras
+    if (rows.length === 0) {
+      console.log("User not found")
+    }   
   }catch (error) {
-    res.status(500).send("Error, sorry")
+    res.status(500).json({ 
+    mensaje: "Error en el servidor", 
+    errorReal: error.message 
+  });
   }
-})
+}
+)
 
 
 app.get("/addbook", (req, res) => {
@@ -198,3 +205,4 @@ app.delete("/book/:id", async (req, res) => {
     res.status(500).send("Error interno del servidor al eliminar el registro");
   }
 })
+
