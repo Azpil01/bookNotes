@@ -2,11 +2,18 @@ import express from "express";
 import bodyParser from "body-parser";
 import mysql from "mysql2/promise";
 import "dotenv/config";
+import bcrypt from "bcrypt";
+import session from "express-session";
+import passport from "passport";
+import { Strategy } from "passport-local";
 
 const app = express();
+const saltRounds = 5;
 
 const theUser = process.env.DB_USER;
 const thePass = process.env.DB_PASSWORD;
+
+
 
 if (!theUser || !thePass) {
   console.error("ERROR: Missing env vars.");
@@ -19,7 +26,7 @@ function initializeDB() {
     host: "srv1293.hstgr.io",
     user: theUser,
     password: thePass,
-    database: "u354636099_test1",
+    database: "u354636099_library",
     waitForConnections: true,
     connectionLimit: 5,
     queueLimit: 0,
@@ -77,6 +84,20 @@ async function postBook(newBook) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+app.use(
+  session({
+    secret: "Ch@rlott31987",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      maxAge: 1000 * 60  * 60
+    }
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.get("/", (req, res) => {
   res.render("login.ejs")
 })
@@ -94,6 +115,18 @@ app.get("/register", (req, res) => {
 //     res.status(500).send("Hubo un problema al cargar tu colección de libros.");
 //   }
 // });
+
+app.post("/register", async (req, res) => {
+  const userInputData = req.body;
+
+  try {
+    const checkResult = await pool.query("SELECT * FROM users WHERE email = ?", [userInputData.email])
+    console.log(checkResult)
+    
+  }catch (error) {
+    res.status(500).send("Error, sorry")
+  }
+})
 
 
 app.get("/addbook", (req, res) => {
