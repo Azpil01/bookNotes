@@ -12,6 +12,7 @@ const saltRounds = 5;
 
 const theUser = process.env.DB_USER;
 const thePass = process.env.DB_PASSWORD;
+const theHost = process.env.DB_HOST || "localhost";
 
 
 
@@ -23,7 +24,7 @@ let pool;
 
 function initializeDB() {
     pool = mysql.createPool({
-    host: "srv1293.hstgr.io",
+    host: theHost,
     user: theUser,
     password: thePass,
     database: "u354636099_library",
