@@ -82,6 +82,7 @@ async function postBook(newBook) {
   }
 }
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -107,6 +108,25 @@ app.get("/register", (req, res) => {
   res.render("register.ejs")
 })
 
+app.get("/api/check-username", async (req, res) => {
+  const {username} = req.query; //+Toma la info del usuario en el script del register.ejs
+
+  if(!username || username.trim() == "") { //+Con esto hacemos que si el campo esta vacío no este mostrando un mensaje de alerta
+    return res.json({available : true});
+  }
+
+  try {
+    const [rows] = await pool.query("SELECT * FROM users WHERE username = ?", [username.trim()]); //+Aqui es donde se hace la búsqueda del nombre de usuario
+    if (rows.length > 0) { //+Si devuelve algo es que existe un usuario
+      return res.json({available: false}); //+Manda un json como respuesta diciendo "avaiable es falso"
+    }
+    res.json({available: true});
+  } catch (error) {
+    console.error("Error al verificar la disponibilidad de nombre de usuario o apodo", error);
+    res.status(500).json({error: "Error interno del servidor"});
+  }
+})
+
 // app.get("/", async (req, res) => {
 //   try {
 //     const dbBooks = await getBooks();
@@ -122,11 +142,42 @@ app.post("/register", async (req, res) => {
   console.log(userInputData.email);
 
   try {
-    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [userInputData.email]) //+Esta deestructuración funciona porque  "rows"
-    //+toma el valor del primer elemento del arrreglo del resultado de la query. En este caso el primer elemento son los datos de la búsqueda. El nombre de la const puede ser el que quieras
-    if (rows.length === 0) {
-      console.log("User not found")
-    }   
+    const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [userInputData.email.toLowerCase().trim()]) //+Esta deestructuración funciona porque  "rows"
+    //+toma el valor del primer elemento del arreglo del resultado de la query. En este caso el primer elemento son los datos de la búsqueda. El nombre de la const puede ser el que quieras
+    if (rows.length > 0) {
+      res.render("register.ejs", {error: "Ese correo ya está registrado"});
+    } else {
+      const hashedPassword = await bcrypt.hash(userInputData.password, saltRounds);
+      console.log(`Original password: ${password}.  Hashed password: ${hashedPassword}`);
+      const [insertResult] = await pool.query(
+        "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", [userInputData.username, userInputData.email.toLowerCase().trim(), hashedPassword]
+      );
+      const newUser = {
+        id: insertResult.insertId,
+        username: userInputData.username,
+        email: userInputData.email
+      };
+      req.login(newUser, (err) => {
+        console.log(err)
+        res.redirect("/home")
+      })
+
+      // bcrypt.hash(userInputData.password, saltRounds, async (err, hash) => {
+      //   if (err) {
+      //     console.error("Error hashing password", err);
+      //   } else {
+      //     console.log("Hashed Password: ", hash);
+      //     const result = await pool.query(
+      //       "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?) RETURNING *", [userInputData.username, userInputData.email, hash]
+      //     );
+      //     const user = result[0];
+      //     req.login(user, (err) => {
+      //       console.log(err)
+      //       res.redirect("/home")
+      //     })
+      //   }
+      // })
+    }
   }catch (error) {
     res.status(500).json({ 
     mensaje: "Error en el servidor", 
@@ -135,6 +186,10 @@ app.post("/register", async (req, res) => {
   }
 }
 )
+
+app.get("/home", (req, res) => {
+  res.render("index.ejs");
+})
 
 
 app.get("/addbook", (req, res) => {
